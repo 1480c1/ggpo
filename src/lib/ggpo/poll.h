@@ -8,6 +8,9 @@
 #ifndef _POLL_H
 #define _POLL_H
 
+#ifdef _WIN32
+#include <winnt.h>
+#endif
 #include "static_buffer.h"
 
 #define MAX_POLLABLE_HANDLES     64
