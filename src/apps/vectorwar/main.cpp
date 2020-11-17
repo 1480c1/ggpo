@@ -95,9 +95,9 @@ Syntax()
               L"Could not start", MB_OK);
 }
 
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
+int APIENTRY WinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE,
-    _In_ LPWSTR,
+    _In_ LPSTR,
     _In_ int)
 {
    HWND hwnd = CreateMainWindow(hInstance);
