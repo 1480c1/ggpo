@@ -122,8 +122,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
       Syntax();
       return 1;
    }
-   unsigned short local_port = (unsigned short)_wtoi(__argv[offset++]);
-   int num_players = _wtoi(__argv[offset++]);
+   unsigned short local_port = (unsigned short)atoi(__argv[offset++]);
+   int num_players = atoi(__argv[offset++]);
    if (num_players < 0 || __argc < offset + num_players) {
       Syntax();
       return 1;
