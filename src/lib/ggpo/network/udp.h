@@ -8,6 +8,10 @@
 #ifndef _UDP_H
 #define _UDP_H
 
+#ifdef _WIN32
+#include <winsock2.h>
+#endif
+
 #include "poll.h"
 #include "udp_msg.h"
 #include "ggponet.h"
@@ -39,7 +43,7 @@ public:
    Udp();
 
    void Init(uint16 port, Poll *p, Callbacks *callbacks);
-   
+
    void SendTo(char *buffer, int len, int flags, struct sockaddr *dst, int destlen);
 
    virtual bool OnLoopPoll(void *cookie);
