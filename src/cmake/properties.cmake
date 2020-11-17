@@ -15,7 +15,7 @@ if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
 	set(GGPO_64BIT true)
 endif()
 
-set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 # Enable colored output
