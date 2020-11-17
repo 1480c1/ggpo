@@ -128,10 +128,10 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
       Syntax();
       return 1;
    }
-   if (wcscmp(__argv[offset], L"spectate") == 0) {
+   if (strcmp (__argv[offset], "spectate") == 0) {
       char host_ip[128];
       unsigned short host_port;
-      if (swscanf_s(__argv[offset+1], L"%[^:]:%hu", wide_ip_buffer, wide_ip_buffer_size, &host_port) != 2) {
+      if (sscanf_s(__argv[offset+1], "%[^:]:%hu", wide_ip_buffer, wide_ip_buffer_size, &host_port) != 2) {
          Syntax();
          return 1;
       }
@@ -142,18 +142,18 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
 
       int i;
       for (i = 0; i < num_players; i++) {
-         const wchar_t *arg = __argv[offset++];
+         const char *arg = __argv[offset++];
 
          players[i].size = sizeof(players[i]);
          players[i].player_num = i + 1;
-         if (!_wcsicmp(arg, L"local")) {
+         if (!_stricmp(arg, "local")) {
             players[i].type = GGPO_PLAYERTYPE_LOCAL;
             local_player = i;
             continue;
          }
 
          players[i].type = GGPO_PLAYERTYPE_REMOTE;
-         if (swscanf_s(arg, L"%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
+         if (sscanf_s(arg, L"%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
             Syntax();
             return 1;
          }
@@ -163,7 +163,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
       int num_spectators = 0;
       while (offset < __argc) {
          players[i].type = GGPO_PLAYERTYPE_SPECTATOR;
-         if (swscanf_s(__argv[offset++], L"%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
+         if (sscanf_s(__argv[offset++], "%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
             Syntax();
             return 1;
          }
