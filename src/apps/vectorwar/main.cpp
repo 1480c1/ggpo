@@ -153,7 +153,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
          }
 
          players[i].type = GGPO_PLAYERTYPE_REMOTE;
-         if (sscanf_s(arg, L"%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
+         if (sscanf_s(arg, "%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
             Syntax();
             return 1;
          }
