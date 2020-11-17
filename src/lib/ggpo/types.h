@@ -36,7 +36,7 @@ typedef int int32;
 /*
  * Additional headers
  */
-#if defined(_WINDOWS)
+#if defined(_WIN32)
 #  include "platform_windows.h"
 #elif defined(__GNUC__)
 #  include "platform_linux.h"
