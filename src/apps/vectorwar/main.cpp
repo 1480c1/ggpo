@@ -72,7 +72,7 @@ RunMainLoop(HWND hwnd)
    start = next = now = timeGetTime();
    while(1) {
       while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-         TranslateMessage(&msg); 
+         TranslateMessage(&msg);
          DispatchMessage(&msg);
          if (msg.message == WM_QUIT) {
             return;
@@ -90,7 +90,7 @@ RunMainLoop(HWND hwnd)
 void
 Syntax()
 {
-   MessageBox(NULL, 
+   MessageBox(NULL,
               L"Syntax: vectorwar.exe <local port> <num players> ('local' | <remote ip>:<remote port>)*\n",
               L"Could not start", MB_OK);
 }
@@ -113,7 +113,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
       { 64,  600 },  // player 3
       { 740, 600 },  // player 4
    };
-   
+
 #if defined(_DEBUG)
    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
@@ -122,16 +122,16 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
       Syntax();
       return 1;
    }
-   unsigned short local_port = (unsigned short)_wtoi(__wargv[offset++]);
-   int num_players = _wtoi(__wargv[offset++]);
+   unsigned short local_port = (unsigned short)_wtoi(__argv[offset++]);
+   int num_players = _wtoi(__argv[offset++]);
    if (num_players < 0 || __argc < offset + num_players) {
       Syntax();
       return 1;
    }
-   if (wcscmp(__wargv[offset], L"spectate") == 0) {
+   if (wcscmp(__argv[offset], L"spectate") == 0) {
       char host_ip[128];
       unsigned short host_port;
-      if (swscanf_s(__wargv[offset+1], L"%[^:]:%hu", wide_ip_buffer, wide_ip_buffer_size, &host_port) != 2) {
+      if (swscanf_s(__argv[offset+1], L"%[^:]:%hu", wide_ip_buffer, wide_ip_buffer_size, &host_port) != 2) {
          Syntax();
          return 1;
       }
@@ -142,7 +142,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
 
       int i;
       for (i = 0; i < num_players; i++) {
-         const wchar_t *arg = __wargv[offset++];
+         const wchar_t *arg = __argv[offset++];
 
          players[i].size = sizeof(players[i]);
          players[i].player_num = i + 1;
@@ -151,7 +151,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
             local_player = i;
             continue;
          }
-         
+
          players[i].type = GGPO_PLAYERTYPE_REMOTE;
          if (swscanf_s(arg, L"%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
             Syntax();
@@ -163,7 +163,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
       int num_spectators = 0;
       while (offset < __argc) {
          players[i].type = GGPO_PLAYERTYPE_SPECTATOR;
-         if (swscanf_s(__wargv[offset++], L"%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
+         if (swscanf_s(__argv[offset++], L"%[^:]:%hd", wide_ip_buffer, wide_ip_buffer_size, &players[i].u.remote.port) != 2) {
             Syntax();
             return 1;
          }
