@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <algorithm>
+#include <cmath>
 #include "vectorwar.h"
 #include "gdi_renderer.h"
 
@@ -114,8 +115,8 @@ GDIRenderer::DrawShip(HDC hdc, int which, GameState &gs)
       double cost, sint, theta;
 
       theta = (double)ship->heading * PI / 180;
-      cost = ::cos(theta);
-      sint = ::sin(theta);
+      cost = std::cos(theta);
+      sint = std::sin(theta);
 
       newx = shape[i].x * cost - shape[i].y * sint;
       newy = shape[i].x * sint + shape[i].y * cost;
